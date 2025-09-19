@@ -1,0 +1,189 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+class customer
+{
+    private:
+    string n;
+    string a;
+    string p;
+
+    public:
+
+    customer(string o ,string b, string q)
+    {
+        n=o;
+        a=b;
+        p=q;
+    }
+
+    void displayinfo()
+    {
+        cout<<n<<" "<<a<<" "<<p<<endl;
+    }
+
+    void setn(string m)
+    {
+        n=m;
+    }
+    string getn()
+    {
+        return n;
+    }
+    void seta(string b)
+    {
+        a=b;
+    }
+    string geta()
+    {
+        return a;
+    }
+    void setp(string q)
+    {
+        p=q;
+    }
+    string getp()
+    {
+        return p;
+    }
+};
+
+class account{
+
+    private:
+    string accountnumber;
+    customer* cus;
+    float balance;
+
+    public:
+    account(string an, customer* c,float b)
+    {
+        accountnumber=an;
+        cus=c;
+        balance=b;
+    }
+    
+    void deposit(float amount)
+    {
+        if(amount>=balance || amount<=balance)
+        {
+            amount=amount+balance;
+            cout<<"amount deposited : "<<amount<<endl;
+        }
+    }
+
+    void withdraw(float amount)
+    {
+        if(amount<=balance)
+        {
+            balance+=amount;
+            cout<<"amount withdraw : "<<balance<<endl;
+        }
+    }
+     void displayinfo()
+    {
+        cout<<accountnumber<<" "<<balance<<endl;
+        cus->displayinfo();
+    }
+     void setan(string ac)
+    {
+        accountnumber=ac;
+    }
+    string getan()
+    {
+        return accountnumber;
+    }
+    customer* setcus(customer* c)
+    {
+        cus=c;
+    }
+    customer* getcus()
+    {
+        return cus;
+    }
+    float setbalance(float b)
+    {
+        balance=b;
+    }
+    float getbalance()
+    {
+        return balance;
+    }
+};
+class bank
+{
+    private:
+    string name;
+    vector<account*> accounts;
+
+    public:
+    bank(string n)
+    {
+        name = n;
+    }
+
+    void addAccount(account* account)
+    {
+        accounts.push_back(account);
+        cout << "added successfully" << endl;
+    }
+
+    void removeAccount(string accountNumber)
+    {
+        for(int i=0; i<accounts.size(); i++)
+        {
+            if(accounts[i]->getan() == accountNumber)
+            {
+                accounts.erase(accounts.begin() + i);
+                cout << "removed successfully" << endl;
+                return;
+            }
+        }
+        cout << "error 404 : not found" << endl;
+    }
+
+    account* findAccount(string accountNumber)
+    {
+        for(int i=0; i<accounts.size(); i++)
+        {
+            if(accounts[i]->getan() == accountNumber)
+            {
+                return accounts[i];
+            }
+        }
+        return nullptr;
+    }
+
+    void displayAllAccounts()
+    {
+        if(accounts.empty())
+        {
+            cout << "No accounts found." << endl;
+            return;
+        }
+        for(int i=0; i<accounts.size(); i++)
+        {
+            accounts[i]->displayinfo();
+        }
+    }
+};
+int main()
+{
+    bank b("UBL");
+    customer c1("warda","hayatabad","0393984748227484");
+    customer c2("amna","hayatabad","03382732892382");
+    customer c3("sana","cantt","03298789718979");
+    account a1("ACC101", &c1, 5000);
+    account a2("ACC102", &c2, 7000);
+    account a3("ACC103", &c3, 10000);
+    a1.deposit(2000);
+    a2.withdraw(3000);
+    a3.withdraw(15000);
+
+    b.displayAllAccounts();
+
+    b.removeAccount("ACC102");
+
+    b.displayAllAccounts();
+}
