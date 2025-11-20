@@ -95,7 +95,7 @@ g++ main.cpp -o bank
 Run
 ./bank
 
-📤 Sample Output
+Sample Output
 amount deposited : 7000
 amount withdraw : 4000
 amount withdraw : 25000
