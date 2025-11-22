@@ -94,7 +94,7 @@ class account{
     {
         return accountnumber;
     }
-    customer* setcus(customer* c)
+    void setcus(customer* c)
     {
         cus=c;
     }
@@ -102,7 +102,7 @@ class account{
     {
         return cus;
     }
-    float setbalance(float b)
+    void setbalance(float b)
     {
         balance=b;
     }
